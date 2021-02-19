@@ -1,24 +1,26 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 
-export default function SearchBar() {
+export default function SearchBar( { addCity }) {
+    const [cityName, setCity] = useState('');
 
-    const [cityName, setCity] = useState([]);
-
-    function handleKeyPress (e) {
-        if (e.keyCode == 13) {
-        console.log('hey')   
+    const handleSubmit = (e) => {
+        e.preventDefault();
         
-        } 
-    }
+        console.log(cityName)
+        addCity(cityName)
 
+        setCity('');
+    }
 
     return (
     <>
     <div className="searchBar">
         <div className="cityForm" id="location">
-            <input className="searchBox" type="text" id="cityName" ref={cityName} onKeyUp={ handleKeyPress } placeholder="Search for a city..." />
+            <form onSubmit={ handleSubmit }>
+                <input className="searchBox" type="text" id="cityName" name value={cityName} onChange={(e) => setCity(e.target.value)} placeholder="Search for a city..." />
+            </form>
             <div className="location">
-                city
+                {cityName}
             </div>
         </div>
     </div>
